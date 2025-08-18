@@ -11,6 +11,9 @@
   "yanagisenchantment.configuration.magicNumberIntroduction": "Magic Number Text",
   "yanagisenchantment.configuration.magicNumber": "Magic Number",
 
+  "effect.yanagisenchantment.crescendo": "Crescendo",
   "effect.yanagisenchantment.stunned": "Stunned",
+
+  "enchantment.yanagisenchantment.battle_rhythm": "Battle Rhythm",
   "enchantment.yanagisenchantment.mighty_knockdown": "Mighty Knockdown"
 }

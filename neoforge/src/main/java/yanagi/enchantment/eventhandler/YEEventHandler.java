@@ -7,7 +7,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import yanagi.enchantment.effect.YEEffects;
-import yanagi.enchantment.eventhandler.weaponeffect.MightyKnockdownEffect;
+import yanagi.enchantment.eventhandler.weaponeffect.BattleRhythmHitEffect;
+import yanagi.enchantment.eventhandler.weaponeffect.MightyKnockdownHitEffect;
 
 public class YEEventHandler {
 
@@ -18,7 +19,6 @@ public class YEEventHandler {
         DamageSource entitySource = event.getSource();
         Entity entity = entitySource.getEntity();
         if (entity == null) {
-            event.setCanceled(true);
             return;
         }
         if (entity instanceof Player p) {
@@ -36,8 +36,10 @@ public class YEEventHandler {
             return;
         }
         isAttacking = true;
+        // Enchantment [Battle Rhythm]
+        BattleRhythmHitEffect.apply(event);
         // Enchantment [Mighty Knockdown]
-        MightyKnockdownEffect.apply(event);
+        MightyKnockdownHitEffect.apply(event);
         isAttacking = false;
     }
 

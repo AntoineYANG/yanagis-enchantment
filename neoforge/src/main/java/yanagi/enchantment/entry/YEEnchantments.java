@@ -9,5 +9,6 @@ import yanagi.enchantment.YanagisEnchantment;
 public class YEEnchantments {
 
     public static ResourceKey<Enchantment> MIGHTY_KNOCKDOWN = ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(YanagisEnchantment.MODID, "mighty_knockdown"));
+    public static ResourceKey<Enchantment> BATTLE_RHYTHM = ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(YanagisEnchantment.MODID, "battle_rhythm"));
 
 }

@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -15,7 +16,7 @@ import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import yanagi.enchantment.effect.YEEffects;
 import yanagi.enchantment.entry.YEEnchantments;
 
-public abstract class MightyKnockdownEffect {
+public abstract class MightyKnockdownHitEffect {
 
     public static float resolveBbSizeThreshold(int level) {
         return 1.33f + 0.67f * (level - 1);
@@ -39,7 +40,7 @@ public abstract class MightyKnockdownEffect {
         Entity target = event.getEntity();
         Entity attacker = entitySource.getEntity();
         float originalDamage = event.getAmount();
-        if (originalDamage < 1) {
+        if (originalDamage < 1 || entitySource.is(DamageTypeTags.IS_PROJECTILE)) {
             return 0;
         }
         if (attacker != null && target != null) {
@@ -58,7 +59,7 @@ public abstract class MightyKnockdownEffect {
                             if (random.nextDouble() <= resolveStunChance(level)) {
                                 // stun
                                 int ticks = resolveStunTicks(level);
-                                tar.addEffect(new MobEffectInstance(YEEffects.STUN_EFFECT, ticks, 1));
+                                tar.addEffect(new MobEffectInstance(YEEffects.STUN_EFFECT, ticks, 0));
                                 // System.out.println("!!!! stun " + ticks + " ticks");
                             }
                         }

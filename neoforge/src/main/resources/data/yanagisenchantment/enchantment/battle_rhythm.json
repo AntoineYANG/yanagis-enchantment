@@ -1,6 +1,6 @@
 {
     "description": {
-        "translate": "enchantment.yanagisenchantment.mighty_knockdown"
+        "translate": "enchantment.yanagisenchantment.battle_rhythm"
     },
     "supported_items": "#minecraft:enchantable/weapon",
     "primary_items": "#minecraft:enchantable/weapon",
@@ -9,13 +9,13 @@
     "max_level": 5,
     "max_cost": {
         "base": 20,
-        "per_level_above_first": 8
+        "per_level_above_first": 5
     },
     "min_cost": {
-        "base": 5,
-        "per_level_above_first": 6
+        "base": 10,
+        "per_level_above_first": 4
     },
-    "anvil_cost": 8,
+    "anvil_cost": 10,
     "slots": [
         "mainhand"
     ]

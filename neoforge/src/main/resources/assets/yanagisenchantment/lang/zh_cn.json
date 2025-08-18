@@ -11,6 +11,9 @@
   "yanagisenchantment.configuration.magicNumberIntroduction": "Magic Number Text",
   "yanagisenchantment.configuration.magicNumber": "Magic Number",
 
+  "effect.yanagisenchantment.crescendo": "缠斗",
   "effect.yanagisenchantment.stunned": "眩晕",
+
+  "enchantment.yanagisenchantment.battle_rhythm": "渐入佳境",
   "enchantment.yanagisenchantment.mighty_knockdown": "力量压制"
 }
