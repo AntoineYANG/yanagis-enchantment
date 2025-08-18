@@ -1,0 +1,16 @@
+{
+  "itemGroup.yanagisenchantment": "Example Mod Tab",
+  "block.yanagisenchantment.example_block": "Example Block",
+  "item.yanagisenchantment.example_item": "Example Item",
+
+  "yanagisenchantment.configuration.title": "Yanagi's Enchantment Configs",
+  "yanagisenchantment.configuration.section.yanagisenchantment.common.toml": "Yanagi's Enchantment Configs",
+  "yanagisenchantment.configuration.section.yanagisenchantment.common.toml.title": "Yanagi's Enchantment Configs",
+  "yanagisenchantment.configuration.items": "Item List",
+  "yanagisenchantment.configuration.logDirtBlock": "Log Dirt Block",
+  "yanagisenchantment.configuration.magicNumberIntroduction": "Magic Number Text",
+  "yanagisenchantment.configuration.magicNumber": "Magic Number",
+
+  "effect.yanagisenchantment.stunned": "眩晕",
+  "enchantment.yanagisenchantment.mighty_knockdown": "力量压制"
+}
