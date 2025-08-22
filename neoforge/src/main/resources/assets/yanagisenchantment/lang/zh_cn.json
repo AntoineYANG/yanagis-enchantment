@@ -12,8 +12,15 @@
   "yanagisenchantment.configuration.magicNumber": "Magic Number",
 
   "effect.yanagisenchantment.crescendo": "缠斗",
+  "effect.yanagisenchantment.shocked": "麻痹",
   "effect.yanagisenchantment.stunned": "眩晕",
 
   "enchantment.yanagisenchantment.battle_rhythm": "渐入佳境",
-  "enchantment.yanagisenchantment.mighty_knockdown": "力量压制"
+  "enchantment.yanagisenchantment.battle_rhythm.desc": "攻击对敌人造成伤害获取最高8层「缠斗」效果，提高攻击速度、移动速度和攻击伤害",
+  "enchantment.yanagisenchantment.chain_lightning": "连锁闪电",
+  "enchantment.yanagisenchantment.chain_lightning.desc": "每隔一段时间的下一次攻击对敌人造成伤害时，生成一道连锁闪电攻击附近的敌人",
+  "enchantment.yanagisenchantment.mighty_knockdown": "力量压制",
+  "enchantment.yanagisenchantment.mighty_knockdown.desc": "对体型较小的敌人造成更高伤害，并提供概率对敌人造成「眩晕」。",
+
+  "entity.yanagisenchantment.chain_lightning": "连锁闪电"
 }

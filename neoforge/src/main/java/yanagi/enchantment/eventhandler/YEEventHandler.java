@@ -8,10 +8,11 @@ import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import yanagi.enchantment.effect.YEEffects;
 import yanagi.enchantment.eventhandler.weaponeffect.BattleRhythmHitEffect;
+import yanagi.enchantment.eventhandler.weaponeffect.ChainLightningHitEffect;
 import yanagi.enchantment.eventhandler.weaponeffect.MightyKnockdownHitEffect;
 
 public class YEEventHandler {
-
+    
     private boolean isAttacking = false;
 
     @SubscribeEvent
@@ -22,12 +23,12 @@ public class YEEventHandler {
             return;
         }
         if (entity instanceof Player p) {
-            if (!p.isCreative() && YEEffects.isStunned(p)) {
+            if (!p.isCreative() && YEEffects.isInterrupted(p)) {
                 event.setCanceled(true);
                 return;
             }
         }
-        if (YEEffects.isStunned(entity)) {
+        if (YEEffects.isInterrupted(entity)) {
             event.setCanceled(true);
             return;
         }
@@ -38,6 +39,8 @@ public class YEEventHandler {
         isAttacking = true;
         // Enchantment [Battle Rhythm]
         BattleRhythmHitEffect.apply(event);
+        // Enchantment [Chain Lightning]
+        ChainLightningHitEffect.apply(event);
         // Enchantment [Mighty Knockdown]
         MightyKnockdownHitEffect.apply(event);
         isAttacking = false;

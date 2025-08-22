@@ -37,18 +37,18 @@ import yanagi.enchantment.entity.YEEntities;
 import yanagi.enchantment.eventhandler.YEEventHandler;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
-@Mod(YanagisEnchantment.MODID)
+@Mod(YanagisEnchantment.MOD_ID)
 public class YanagisEnchantment {
     // Define mod id in a common place for everything to reference
-    public static final String MODID = "yanagisenchantment";
+    public static final String MOD_ID = "yanagisenchantment";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
     // Create a Deferred Register to hold Blocks which will all be registered under the "yanagisenchantment" namespace
-    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MOD_ID);
     // Create a Deferred Register to hold Items which will all be registered under the "yanagisenchantment" namespace
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MOD_ID);
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "yanagisenchantment" namespace
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
 
     // Creates a new Block with the id "yanagisenchantment:example_block", combining the namespace and path
     public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", BlockBehaviour.Properties.of().mapColor(MapColor.STONE));
@@ -127,11 +127,11 @@ public class YanagisEnchantment {
     }
 
 	public static ResourceLocation prefix(String name) {
-		return ResourceLocation.fromNamespaceAndPath(MODID, name.toLowerCase(Locale.ROOT));
+		return ResourceLocation.fromNamespaceAndPath(MOD_ID, name.toLowerCase(Locale.ROOT));
 	}
 
     public static String of(String name) {
-        return MODID + ":" + name.toLowerCase(Locale.ROOT);
+        return MOD_ID + ":" + name.toLowerCase(Locale.ROOT);
     }
 
 }

@@ -11,10 +11,25 @@ import yanagi.enchantment.YanagisEnchantment;
 
 public class YEEffects {
 
-    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, YanagisEnchantment.MODID);
+    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, YanagisEnchantment.MOD_ID);
 
+    // beneficial
     public static final Holder<MobEffect> CRESCENDO_EFFECT = MOB_EFFECTS.register(CrescendoEffect.name, CrescendoEffect::new);
+
+    // harmful
+    public static final Holder<MobEffect> SHOCKED_EFFECT = MOB_EFFECTS.register(ShockedEffect.name, ShockedEffect::new);
     public static final Holder<MobEffect> STUN_EFFECT = MOB_EFFECTS.register(StunnedEffect.name, StunnedEffect::new);
+
+    public static boolean isInterrupted(Entity e) {
+        return isShocked(e) || isStunned(e);
+    }
+
+    public static boolean isShocked(Entity e) {
+        if (e instanceof LivingEntity le) {
+            return le.hasEffect(SHOCKED_EFFECT);
+        }
+        return false;
+    }
 
     public static boolean isStunned(Entity e) {
         if (e instanceof LivingEntity le) {

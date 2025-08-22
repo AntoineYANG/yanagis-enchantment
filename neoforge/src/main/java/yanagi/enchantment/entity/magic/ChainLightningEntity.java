@@ -2,7 +2,11 @@ package yanagi.enchantment.entity.magic;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.network.syncher.SynchedEntityData.Builder;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -11,7 +15,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.PlayerTeam;
@@ -30,10 +33,9 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
     public static final int ENERGY_COST_PER_BLOCK = 16;
     public static final int ENERGY_COST_PER_BLOCK_IN_WATER = 3;
     public static final int ENERGY_BONUS_WHEN_HIT = 5;
-    public static final int WARMUP_TIME = 1;
-    public static final int CONTINUE_INTERVAL = 2;
-    public static final int ANI_TIME = 6;
-    public static final int MAX_LIFE = Math.max(WARMUP_TIME + ANI_TIME, WARMUP_TIME + CONTINUE_INTERVAL);
+    public static final int CONTINUE_INTERVAL = 1;
+    public static final int ANI_TIME = 5;
+    public static final int MAX_LIFE = Math.max(ANI_TIME, CONTINUE_INTERVAL);
 
     public static final int resolveInitEnergy(int amplifier) {
         return 150 + 50 * amplifier;
@@ -46,7 +48,7 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
         return (int)RandomHelper.clampGaussian(mean, sigma, minDmg, maxDmg);
     }
     public static final int resolvePctDamage(LivingEntity e, int energy) {
-        double pct = e.getHealth() * 0.01d * (energy / 50.0d);
+        double pct = e.getHealth() * 0.01d * (energy / 80.0d);
         return (int)Math.ceil(pct);
     }
     
@@ -67,6 +69,16 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
     @Nullable protected LivingEntity target = null;
     protected final List<String> uuidExcludes = new ArrayList<>();
 
+    private static final EntityDataAccessor<Integer> SRC_ID = SynchedEntityData.defineId(ChainLightningEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Float> SRC_X = SynchedEntityData.defineId(ChainLightningEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> SRC_Y = SynchedEntityData.defineId(ChainLightningEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> SRC_Z = SynchedEntityData.defineId(ChainLightningEntity.class, EntityDataSerializers.FLOAT);
+    
+    private static final EntityDataAccessor<Integer> TGT_ID = SynchedEntityData.defineId(ChainLightningEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Float> TGT_X = SynchedEntityData.defineId(ChainLightningEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> TGT_Y = SynchedEntityData.defineId(ChainLightningEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> TGT_Z = SynchedEntityData.defineId(ChainLightningEntity.class, EntityDataSerializers.FLOAT);
+
     public ChainLightningEntity(EntityType<? extends ChainLightningEntity> entityType, Level worldLevel) {
         super(entityType, worldLevel);
         this.setNoGravity(true);
@@ -86,6 +98,24 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
         this.initialized = true;
         this.setInitEnergy(resolveInitEnergy(this.amplifier));
         this.time = 0;
+
+        LivingEntity tar = this.findTarget();
+        if (tar != null) {
+            setTarget(tar);
+            this.damage(tar);
+            tar.addEffect(new MobEffectInstance(YEEffects.SHOCKED_EFFECT, 4, 0));
+            float vol = Math.min(3.0f, 0.1f + 2.9f * this.initEnergy / resolveInitEnergy(4));
+            this.playSound(SoundEvents.FIRECHARGE_USE, vol, 0.3F);
+        } else {
+            // int count = 0;
+            // @Nullable ChainLightningEntity p = this.parent;
+            // while (p != null) {
+            //     p = p.parent;
+            //     count++;
+            // }
+            // System.out.println("[ChainLightning] " + count + "hits");
+            this.discard();
+        }
     }
 
     public static ChainLightningEntity generateChainLightningEntityOnLivingEntity(
@@ -94,7 +124,7 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
         Level level = entity.level();
         Vec3 pos = entity.getBoundingBox().getCenter();
         ChainLightningEntity chainLightning = new ChainLightningEntity(level, pos.x, pos.y, pos.z, owner, amplifier);
-        chainLightning.source = entity;
+        chainLightning.setSource(entity);
 		level.addFreshEntity(chainLightning);
         return chainLightning;
     }
@@ -142,6 +172,11 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
 
     @Override
     protected void defineSynchedData(@SuppressWarnings("null") Builder builder) {
+        if (builder == null) {
+            return;
+        }
+        builder.define(SRC_ID, -1); builder.define(SRC_X, 0f); builder.define(SRC_Y, 0f); builder.define(SRC_Z, 0f);
+        builder.define(TGT_ID, -1); builder.define(TGT_X, 0f); builder.define(TGT_Y, 0f); builder.define(TGT_Z, 0f);
         return;
     }
 
@@ -154,13 +189,13 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
         if (compound.contains("SourceID")) {
             Entity e = this.level().getEntity(compound.getInt("SourceID"));
             if (e != null && e instanceof LivingEntity e0) {
-                this.source = e0;
+                setSource(e0);
             }
         }
         if (compound.contains("TargetID")) {
             Entity e = this.level().getEntity(compound.getInt("TargetID"));
             if (e != null && e instanceof LivingEntity e0) {
-                this.target = e0;
+                setTarget(e0);
             }
         }
         this.uuidExcludes.clear();
@@ -201,6 +236,9 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
             return;
         }
 
+        this.entityData.set(SRC_X, (float)this.getX());
+        this.entityData.set(SRC_Y, (float)this.getY());
+        this.entityData.set(SRC_Z, (float)this.getZ());
         if (this.level().isClientSide()) {
             this.makeParticles();
         } else {
@@ -209,25 +247,7 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
                 this.initialized = true;
             }
             this.time++;
-            if (this.time == ChainLightningEntity.WARMUP_TIME) {
-                LivingEntity tar = this.findTarget();
-                if (tar != null) {
-                    this.target = tar;
-                    this.damage(this.target);
-                    // TODO: new effect
-                    tar.addEffect(new MobEffectInstance(YEEffects.STUN_EFFECT, 4, 0));
-                    this.playSound(SoundType.GLASS.getBreakSound(), 3.0F, 0.5F);
-                } else {
-                    // int count = 0;
-                    // @Nullable ChainLightningEntity p = this.parent;
-                    // while (p != null) {
-                    //     p = p.parent;
-                    //     count++;
-                    // }
-                    // System.out.println("[ChainLightning] " + count + "hits");
-                    this.discard();
-                }
-            } else if (this.time == ChainLightningEntity.WARMUP_TIME + ChainLightningEntity.CONTINUE_INTERVAL) {
+            if (this.time == ChainLightningEntity.CONTINUE_INTERVAL) {
                 LivingEntity tar = this.target;
                 if (tar != null) {
                     if (this.nextEnergy > 0) {
@@ -250,8 +270,8 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
     }
 
     private void damage(LivingEntity target) {
-        LivingEntity livingEntity = this.getOwner();
-        if (!target.isAlive() || target.isInvulnerable() || target == livingEntity) {
+        LivingEntity owner = this.getOwner();
+        if (!target.isAlive() || target.isInvulnerable() || target == owner) {
             return;
         }
         @Nullable PlayerTeam targetTeam = target.getTeam();
@@ -259,11 +279,9 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
         if (targetTeam != null && target != null && targetTeam.isAlliedTo(ownerTeam)) {
             return;
         }
-        if (livingEntity == null) {
-            // FIXME: damage types
-            target.hurt(this.damageSources().source(DamageTypes.LIGHTNING_BOLT), resolveBasicDamage(amplifier));
-            target.hurt(this.damageSources().source(DamageTypes.MAGIC), resolvePctDamage(target, this.nextEnergy));
-        }
+        // FIXME: damage types
+        target.hurt(this.damageSources().source(DamageTypes.GENERIC), resolveBasicDamage(amplifier));
+        target.hurt(this.damageSources().source(DamageTypes.MAGIC), resolvePctDamage(target, this.nextEnergy));
     }
 
 	@Override
@@ -272,25 +290,50 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
 	}
     
     protected void makeParticles() {
-        // FIXME:
-        for (int i = 0; i < 10; i++) {
-			double dx = this.getX() + 1.5F * (this.random.nextFloat() - this.random.nextFloat());
-			double dy = this.getY() - 4.0F * (this.random.nextFloat() - this.random.nextFloat()) - 3.0F;
-			double dz = this.getZ() + 1.5F * (this.random.nextFloat() - this.random.nextFloat());
+        for (int i = 0; i < 4; i++) {
+			double dx = this.getX() - 0.2F + 0.4F * (this.random.nextFloat() - this.random.nextFloat());
+			double dy = this.getY() - 0.5F + 1.0F * (this.random.nextFloat() - this.random.nextFloat());
+			double dz = this.getZ() - 0.2F + 0.4F * (this.random.nextFloat() - this.random.nextFloat());
 
-			this.level().addAlwaysVisibleParticle(ParticleTypes.FLAME, dx, dy, dz, 0.0D, -1.0D, 0.0D);
+			this.level().addAlwaysVisibleParticle(ParticleTypes.ELECTRIC_SPARK, dx, dy, dz, 0.0D, 0.0D, 0.0D);
 		}
-        if (this.target != null) {
-            // TODO:
-        }
+    }
+
+    protected static Vec3 getEntityStrikePos(LivingEntity e) {
+        AABB bb = e.getBoundingBox();
+        Vec3 bc = bb.getBottomCenter();
+        return new Vec3(bc.x, bc.y + (bb.maxY - bb.minY) * (e.isAlive() ? 0.6f : 0.1f), bc.z);
+    }
+
+    protected Vec3 getSourcePos() {
+        @Nullable Vec3 sourcePos = this.source == null ? null : getEntityStrikePos(this.source);
+        Vec3 pos = sourcePos == null ? this.position() : sourcePos;
+        return pos;
+    }
+
+    protected void setSource(LivingEntity e) {
+        this.source = e;
+        Vec3 pos = getEntityStrikePos(e);
+        this.entityData.set(SRC_ID, e.getId());
+        this.entityData.set(SRC_X, (float)pos.x);
+        this.entityData.set(SRC_Y, (float)pos.y);
+        this.entityData.set(SRC_Z, (float)pos.z);
+    }
+
+    protected void setTarget(LivingEntity e) {
+        this.target = e;
+        Vec3 pos = getEntityStrikePos(e);
+        this.entityData.set(TGT_ID, e.getId());
+        this.entityData.set(TGT_X, (float)pos.x);
+        this.entityData.set(TGT_Y, (float)pos.y);
+        this.entityData.set(TGT_Z, (float)pos.z);
     }
 
     @Nullable
     protected LivingEntity findTarget() {
         @Nullable PlayerTeam ownerTeam = owner == null ? null : owner.getTeam();
-        @Nullable Vec3 sourcePos = this.source == null ? null : this.source.getBoundingBox().getCenter();
-        Vec3 startPos = sourcePos == null ? this.position() : sourcePos;
-        int radius = 8;// FIXME:
+        Vec3 startPos = getSourcePos();
+        int radius = (int)(1.5F * this.initEnergy / ENERGY_COST_PER_BLOCK);
         AABB searchBox = new AABB(
             startPos.x - radius, startPos.y - radius, startPos.z - radius,
             startPos.x + radius, startPos.y + radius, startPos.z + radius
@@ -300,6 +343,9 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
         List<Entity> list = this.level().getEntities(this, searchBox, EntitySelector.NO_SPECTATORS);
         for (Entity entity : list) {
             if (entity instanceof LivingEntity e) {
+                if (owner != null && owner.getId() == e.getId()) {
+                    continue;
+                }
                 boolean repeated = false;
                 for (String uuid : this.uuidExcludes) {
                     if (uuid.compareTo(e.getStringUUID()) == 0) {
@@ -333,8 +379,30 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
 
     protected int costForStriking(Vec3 startPos, LivingEntity e) {
         // TODO: check water
-        double dist = e.getBoundingBox().distanceToSqr(startPos);
+        double dist = Math.sqrt(e.getBoundingBox().distanceToSqr(startPos));
         return (int)(dist * ENERGY_COST_PER_BLOCK);
+    }
+
+    public Vec3 getSourcePosSync() {
+        int id = this.entityData.get(SRC_ID);
+        if (id != -1 && level() != null) {
+            Entity e = level().getEntity(id);
+            if (e instanceof LivingEntity le) {
+                return getEntityStrikePos(le);
+            }
+        }
+        return new Vec3(this.entityData.get(SRC_X), this.entityData.get(SRC_Y), this.entityData.get(SRC_Z));
+    }
+
+    public Vec3 getTargetPosSync() {
+        int id = this.entityData.get(TGT_ID);
+        if (id != -1 && level() != null) {
+            Entity e = level().getEntity(id);
+            if (e instanceof LivingEntity le) {
+                return getEntityStrikePos(le);
+            }
+        }
+        return new Vec3(this.entityData.get(TGT_X), this.entityData.get(TGT_Y), this.entityData.get(TGT_Z));
     }
 
 }

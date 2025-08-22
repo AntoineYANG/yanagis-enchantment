@@ -12,8 +12,15 @@
   "yanagisenchantment.configuration.magicNumber": "Magic Number",
 
   "effect.yanagisenchantment.crescendo": "Crescendo",
+  "effect.yanagisenchantment.shocked": "Shocked",
   "effect.yanagisenchantment.stunned": "Stunned",
 
   "enchantment.yanagisenchantment.battle_rhythm": "Battle Rhythm",
-  "enchantment.yanagisenchantment.mighty_knockdown": "Mighty Knockdown"
+  "enchantment.yanagisenchantment.battle_rhythm.desc": "",
+  "enchantment.yanagisenchantment.chain_lightning": "Chain Lightning",
+  "enchantment.yanagisenchantment.chain_lightning.desc": "",
+  "enchantment.yanagisenchantment.mighty_knockdown": "Mighty Knockdown",
+  "enchantment.yanagisenchantment.mighty_knockdown.desc": "",
+
+  "entity.yanagisenchantment.chain_lightning": "Chain Lightning"
 }

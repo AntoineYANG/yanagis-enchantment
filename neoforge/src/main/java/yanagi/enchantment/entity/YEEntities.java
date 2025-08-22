@@ -25,7 +25,7 @@ import yanagi.enchantment.entity.magic.ChainLightningEntity;
 
 public class YEEntities {
 
-    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, YanagisEnchantment.MODID);
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, YanagisEnchantment.MOD_ID);
 	// public static final DeferredRegister<Item> SPAWN_EGGS = DeferredRegister.create(Registries.ITEM, YanagisEnchantment.MODID);
 	// public static final Map<Holder<EntityType<?>>, Supplier<AttributeSupplier.Builder>> ATTRIBUTES = new HashMap<>();
 	// public static final Map<Holder<EntityType<?>>, SpawnPlacements.SpawnPredicate<?>> SPAWN_PREDICATES = new HashMap<>();
@@ -34,7 +34,7 @@ public class YEEntities {
         ChainLightningEntity.name, EntityType.Builder.<ChainLightningEntity>of(
             ChainLightningEntity::new, MobCategory.MISC
         )
-            .sized(0.1F, 0.1F)
+            .sized(1.0F, 1.0F)
             .clientTrackingRange(4)
             .updateInterval(10)
             .fireImmune()
