@@ -20,6 +20,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.scores.PlayerTeam;
 import yanagi.enchantment.effect.YEEffects;
 import yanagi.enchantment.entity.YEEntities;
+import yanagi.enchantment.entry.YEDamageTypes;
 import yanagi.enchantment.utils.RandomHelper;
 
 import java.util.*;
@@ -105,7 +106,7 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
             this.damage(tar);
             tar.addEffect(new MobEffectInstance(YEEffects.SHOCKED_EFFECT, 4, 0));
             float vol = Math.min(3.0f, 0.1f + 2.9f * this.initEnergy / resolveInitEnergy(4));
-            this.playSound(SoundEvents.FIRECHARGE_USE, vol, 0.3F);
+            this.playSound(SoundEvents.FIRECHARGE_USE, vol, 0.6F);
         } else {
             // int count = 0;
             // @Nullable ChainLightningEntity p = this.parent;
@@ -279,9 +280,8 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
         if (targetTeam != null && target != null && targetTeam.isAlliedTo(ownerTeam)) {
             return;
         }
-        // FIXME: damage types
-        target.hurt(this.damageSources().source(DamageTypes.GENERIC), resolveBasicDamage(amplifier));
-        target.hurt(this.damageSources().source(DamageTypes.MAGIC), resolvePctDamage(target, this.nextEnergy));
+        target.hurt(this.damageSources().source(YEDamageTypes.ELEMENT_ELECTRICITY), resolveBasicDamage(amplifier));
+        target.hurt(this.damageSources().source(YEDamageTypes.ELEMENT_ELECTRICITY), resolvePctDamage(target, this.nextEnergy));
     }
 
 	@Override

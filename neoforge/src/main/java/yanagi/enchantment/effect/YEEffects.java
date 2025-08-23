@@ -1,7 +1,12 @@
 package yanagi.enchantment.effect;
 
+import org.jetbrains.annotations.NotNull;
+
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -10,6 +15,25 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import yanagi.enchantment.YanagisEnchantment;
 
 public class YEEffects {
+
+    public static class Tags {
+        
+        // beneficial
+        public static final TagKey<MobEffect> CRESCENDO = tag("crescendo");
+        
+        // harmful
+        public static final TagKey<MobEffect> SHOCKED = tag("shocked");
+        public static final TagKey<MobEffect> STUNNED = tag("stunned");
+
+        public static void setup(TagsProvider<MobEffect> provider, HolderLookup.@NotNull Provider pProvider) {
+            return;
+        }
+
+        private static @NotNull TagKey<MobEffect> tag(@NotNull String name) {
+            return TagKey.create(Registries.MOB_EFFECT, YanagisEnchantment.prefix(name));
+        }
+
+    }
 
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, YanagisEnchantment.MOD_ID);
 

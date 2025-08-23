@@ -1,0 +1,22 @@
+{
+  "anvil_cost": 8,
+  "description": {
+    "translate": "enchantment.yanagisenchantment.mighty_knockdown"
+  },
+  "exclusive_set": "#yanagisenchantment:attack_effect",
+  "max_cost": {
+    "base": 20,
+    "per_level_above_first": 8
+  },
+  "max_level": 5,
+  "min_cost": {
+    "base": 5,
+    "per_level_above_first": 6
+  },
+  "primary_items": "#yanagisenchantment:melee_weapons",
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#minecraft:enchantable/weapon",
+  "weight": 3
+}

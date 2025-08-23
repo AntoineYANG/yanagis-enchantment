@@ -134,4 +134,8 @@ public class YanagisEnchantment {
         return MOD_ID + ":" + name.toLowerCase(Locale.ROOT);
     }
 
+    public static String dot(String name) {
+        return MOD_ID + "." + name.toLowerCase(Locale.ROOT);
+    }
+
 }

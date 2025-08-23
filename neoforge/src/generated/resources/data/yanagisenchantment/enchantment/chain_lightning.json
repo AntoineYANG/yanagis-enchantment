@@ -1,0 +1,22 @@
+{
+  "anvil_cost": 15,
+  "description": {
+    "translate": "enchantment.yanagisenchantment.chain_lightning"
+  },
+  "exclusive_set": "#yanagisenchantment:attack_effect",
+  "max_cost": {
+    "base": 24,
+    "per_level_above_first": 6
+  },
+  "max_level": 5,
+  "min_cost": {
+    "base": 12,
+    "per_level_above_first": 3
+  },
+  "primary_items": "#yanagisenchantment:melee_weapons",
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#minecraft:enchantable/weapon",
+  "weight": 2
+}

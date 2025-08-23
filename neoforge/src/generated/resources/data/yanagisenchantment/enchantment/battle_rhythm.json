@@ -1,0 +1,22 @@
+{
+  "anvil_cost": 10,
+  "description": {
+    "translate": "enchantment.yanagisenchantment.battle_rhythm"
+  },
+  "exclusive_set": "#yanagisenchantment:attack_effect",
+  "max_cost": {
+    "base": 20,
+    "per_level_above_first": 5
+  },
+  "max_level": 5,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 4
+  },
+  "primary_items": "#yanagisenchantment:melee_weapons",
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#minecraft:enchantable/weapon",
+  "weight": 2
+}
