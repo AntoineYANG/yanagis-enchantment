@@ -317,6 +317,7 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
         return new Vec3(bc.x, bc.y + (bb.maxY - bb.minY) * (e.isAlive() ? 0.6f : 0.1f), bc.z);
     }
 
+    @SuppressWarnings("null")
     protected static Vec3 getStrikePosOf(ChainLightningEntity.StrikeTarget tar) {
         @Nullable LivingEntity e = tar.entity;
         if (e != null) {
@@ -331,6 +332,7 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
         return pos;
     }
 
+    @SuppressWarnings("null")
     protected void setSource(StrikeTarget tar) {
         this.source = tar;
         Vec3 pos = getStrikePosOf(tar);
@@ -344,6 +346,7 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
         this.entityData.set(SRC_Z, (float)pos.z);
     }
 
+    @SuppressWarnings("null")
     protected void setTarget(StrikeTarget tar) {
         this.target = tar;
         Vec3 pos = getStrikePosOf(tar);
@@ -491,7 +494,11 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
             CollisionContext.empty()
         ));
 
-        return hit.getType() != net.minecraft.world.phys.HitResult.Type.BLOCK;
+        if (hit.getType() == net.minecraft.world.phys.HitResult.Type.BLOCK) {
+            BlockPos pos = hit.getBlockPos();
+            return this.level().getBlockState(pos).is(Blocks.LIGHTNING_ROD);
+        }
+        return true;
     }
 
     public Vec3 getSourcePosSync() {
