@@ -50,7 +50,7 @@ public abstract class ChainLightningHitEffect {
                         long now = server.overworld().getGameTime();
                         if (isWeaponOffCooldown(weapon, now)) {
                             markWeaponUsed(weapon, now + resolveCooldownTicks(level));
-                            ChainLightningEntity.generateChainLightningEntityOnLivingEntity(atk, tar, resolveChainLightningLevel(level) - 1);
+                            ChainLightningEntity.generateChainLightningEntityOnTarget(atk, attacker.level(), new ChainLightningEntity.StrikeTarget(tar), resolveChainLightningLevel(level) - 1);
                         }
                     }
                 }

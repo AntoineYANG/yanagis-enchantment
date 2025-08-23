@@ -13,10 +13,9 @@
     "base": 10,
     "per_level_above_first": 4
   },
-  "primary_items": "#yanagisenchantment:melee_weapons",
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#minecraft:enchantable/weapon",
+  "supported_items": "#yanagisenchantment:melee_weapons",
   "weight": 2
 }

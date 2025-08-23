@@ -54,7 +54,6 @@ public class YEEnchantments {
         context.register(BATTLE_RHYTHM,
             new Enchantment.Builder(
                 Enchantment.definition(
-                    items.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
                     items.getOrThrow(YETags.Items.MELEE_WEAPONS),
                     2,
                     5,
@@ -70,7 +69,6 @@ public class YEEnchantments {
         context.register(CHAIN_LIGHTNING,
             new Enchantment.Builder(
                 Enchantment.definition(
-                    items.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
                     items.getOrThrow(YETags.Items.MELEE_WEAPONS),
                     2,
                     5,
@@ -86,7 +84,6 @@ public class YEEnchantments {
         context.register(MIGHTY_KNOCKDOWN,
             new Enchantment.Builder(
                 Enchantment.definition(
-                    items.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
                     items.getOrThrow(YETags.Items.MELEE_WEAPONS),
                     3,
                     5,

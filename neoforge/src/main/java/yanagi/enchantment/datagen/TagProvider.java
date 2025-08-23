@@ -73,7 +73,7 @@ public class TagProvider {
         @Override
         protected void addTags(HolderLookup.@NotNull Provider holderProvider) {
             // enchantable
-            tag(YETags.Items.MELEE_WEAPONS).addTags(ItemTags.SWORDS, ItemTags.AXES).add(Items.TRIDENT.asItem());
+            tag(YETags.Items.MELEE_WEAPONS).addTags(ItemTags.SWORDS, ItemTags.AXES).add(Items.TRIDENT.asItem(), Items.MACE.asItem());
         }
 
     }
