@@ -5,11 +5,15 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.entity.player.ArrowLooseEvent;
+import net.neoforged.neoforge.event.entity.player.ArrowNockEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import yanagi.enchantment.effect.YEEffects;
 import yanagi.enchantment.eventhandler.weaponeffect.BattleRhythmHitEffect;
+import yanagi.enchantment.eventhandler.weaponeffect.BetTheFarmShootEffect;
 import yanagi.enchantment.eventhandler.weaponeffect.ChainLightningHitEffect;
-import yanagi.enchantment.eventhandler.weaponeffect.MightyKnockdownHitEffect;
+import yanagi.enchantment.eventhandler.weaponeffect.CriticalHitEffect;
+import yanagi.enchantment.eventhandler.weaponeffect.LifeStealHitEffect;
 
 public class YEEventHandler {
     
@@ -37,14 +41,30 @@ public class YEEventHandler {
             return;
         }
         isAttacking = true;
+        // Enchantment [Critical Hit]
+        CriticalHitEffect.apply(event);
         // Enchantment [Battle Rhythm]
         BattleRhythmHitEffect.apply(event);
         // Enchantment [Chain Lightning]
         ChainLightningHitEffect.apply(event);
-        // Enchantment [Mighty Knockdown]
-        MightyKnockdownHitEffect.apply(event);
+        // // Enchantment [Mighty Knockdown]
+        // MightyKnockdownHitEffect.apply(event);
+        // Enchantment [Life Steal]
+        LifeStealHitEffect.apply(event);
         isAttacking = false;
     }
+
+    // @SubscribeEvent
+    // public void onArrowNock(ArrowNockEvent event) {
+    //     // Enchantment [Bet the Farm]
+    //     BetTheFarmShootEffect.handleArrowNock(event);
+    // }
+
+    // @SubscribeEvent
+    // public void onArrowLoose(ArrowLooseEvent event) {
+    //     // Enchantment [Bet the Farm]
+    //     BetTheFarmShootEffect.handleArrowLoose(event);
+    // }
 
     @SubscribeEvent
     public void onPlayerInteract(PlayerInteractEvent.LeftClickBlock event) {

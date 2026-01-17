@@ -1,0 +1,21 @@
+{
+  "anvil_cost": 10,
+  "description": {
+    "translate": "enchantment.yanagisenchantment.life_steal"
+  },
+  "exclusive_set": "#yanagisenchantment:attack_effect",
+  "max_cost": {
+    "base": 20,
+    "per_level_above_first": 8
+  },
+  "max_level": 5,
+  "min_cost": {
+    "base": 5,
+    "per_level_above_first": 6
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#yanagisenchantment:melee_weapons",
+  "weight": 3
+}

@@ -21,6 +21,12 @@
   "enchantment.yanagisenchantment.chain_lightning.desc": "每隔一段时间的下一次攻击对敌人造成伤害时，生成一道连锁闪电攻击附近的敌人",
   "enchantment.yanagisenchantment.mighty_knockdown": "力量压制",
   "enchantment.yanagisenchantment.mighty_knockdown.desc": "对体型较小的敌人造成更高伤害，并提供概率对敌人造成「眩晕」。",
+  "enchantment.yanagisenchantment.critical_rate": "暴击率",
+  "enchantment.yanagisenchantment.critical_rate.desc": "攻击有更高概率造成暴击。",
+  "enchantment.yanagisenchantment.critical_damage": "暴击伤害",
+  "enchantment.yanagisenchantment.critical_damage.desc": "攻击有概率造成暴击；暴击伤害提升。",
+  "enchantment.yanagisenchantment.life_steal": "生命偷取",
+  "enchantment.yanagisenchantment.life_steal.desc": "攻击回复一定比例于造成伤害的生命值。",
 
   "entity.yanagisenchantment.chain_lightning": "连锁闪电"
 }

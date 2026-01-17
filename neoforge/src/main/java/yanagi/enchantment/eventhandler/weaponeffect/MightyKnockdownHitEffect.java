@@ -36,37 +36,37 @@ public abstract class MightyKnockdownHitEffect {
     public static final Random random = new Random();
 
     public static float apply(LivingIncomingDamageEvent event) {
-        DamageSource entitySource = event.getSource();
-        Entity target = event.getEntity();
-        Entity attacker = entitySource.getEntity();
-        float originalDamage = event.getAmount();
-        if (originalDamage < 1 || entitySource.is(DamageTypeTags.IS_PROJECTILE)) {
-            return 0;
-        }
-        if (attacker != null && target != null) {
-            if (attacker instanceof LivingEntity atk && target instanceof LivingEntity tar) {
-                if (!atk.getMainHandItem().isEmpty()) {
-                    Registry<Enchantment> enchantments = atk.registryAccess().registryOrThrow(Registries.ENCHANTMENT);
-                    int level = EnchantmentHelper.getEnchantmentLevel(enchantments.getHolderOrThrow(YEEnchantments.MIGHTY_KNOCKDOWN), atk);
-                    if (level > 0) {
-                        double atkSize = bbSize(atk);
-                        double tarSize = bbSize(tar);
-                        double ratio = tarSize / atkSize;
-                        if (ratio <= resolveBbSizeThreshold(level)) {
-                            float dmg = resolveExtraDmgMultiplier(level, ratio) * originalDamage;
-                            event.setAmount(dmg);
-                            // System.out.println("!!!! attack " + attacker.getName().getString() + " -> " + target.getName().getString() + " (" + originalDamage + "->" + dmg + ")");
-                            if (random.nextDouble() <= resolveStunChance(level)) {
-                                // stun
-                                int ticks = resolveStunTicks(level);
-                                tar.addEffect(new MobEffectInstance(YEEffects.STUN_EFFECT, ticks, 0));
-                                // System.out.println("!!!! stun " + ticks + " ticks");
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        // DamageSource entitySource = event.getSource();
+        // Entity target = event.getEntity();
+        // Entity attacker = entitySource.getEntity();
+        // float originalDamage = event.getAmount();
+        // if (originalDamage < 1 || entitySource.is(DamageTypeTags.IS_PROJECTILE)) {
+        //     return 0;
+        // }
+        // if (attacker != null && target != null) {
+        //     if (attacker instanceof LivingEntity atk && target instanceof LivingEntity tar) {
+        //         if (!atk.getMainHandItem().isEmpty()) {
+        //             Registry<Enchantment> enchantments = atk.registryAccess().registryOrThrow(Registries.ENCHANTMENT);
+        //             int level = EnchantmentHelper.getEnchantmentLevel(enchantments.getHolderOrThrow(YEEnchantments.MIGHTY_KNOCKDOWN), atk);
+        //             if (level > 0) {
+        //                 double atkSize = bbSize(atk);
+        //                 double tarSize = bbSize(tar);
+        //                 double ratio = tarSize / atkSize;
+        //                 if (ratio <= resolveBbSizeThreshold(level)) {
+        //                     float dmg = resolveExtraDmgMultiplier(level, ratio) * originalDamage;
+        //                     event.setAmount(dmg);
+        //                     // System.out.println("!!!! attack " + attacker.getName().getString() + " -> " + target.getName().getString() + " (" + originalDamage + "->" + dmg + ")");
+        //                     if (random.nextDouble() <= resolveStunChance(level)) {
+        //                         // stun
+        //                         int ticks = resolveStunTicks(level);
+        //                         tar.addEffect(new MobEffectInstance(YEEffects.STUN_EFFECT, ticks, 0));
+        //                         // System.out.println("!!!! stun " + ticks + " ticks");
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         return 0;
     }
 

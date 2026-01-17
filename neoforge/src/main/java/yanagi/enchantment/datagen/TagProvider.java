@@ -126,11 +126,16 @@ public class TagProvider {
 
         @Override
         protected void addTags(HolderLookup.@NotNull Provider pProvider) {
-            this.tag(Tags.Enchantments.WEAPON_DAMAGE_ENHANCEMENTS).add(YEEnchantments.BATTLE_RHYTHM, YEEnchantments.MIGHTY_KNOCKDOWN);
+            // this.tag(Tags.Enchantments.WEAPON_DAMAGE_ENHANCEMENTS).add(YEEnchantments.BATTLE_RHYTHM, YEEnchantments.MIGHTY_KNOCKDOWN);
             this.tag(Tags.Enchantments.ENTITY_SPEED_ENHANCEMENTS).add(YEEnchantments.BATTLE_RHYTHM);
             this.tag(YETags.Enchantments.ATTACK_EFFECT).add(YEEnchantments.CHAIN_LIGHTNING);
-            this.tag(EnchantmentTags.NON_TREASURE).add(YEEnchantments.BATTLE_RHYTHM, YEEnchantments.CHAIN_LIGHTNING, YEEnchantments.MIGHTY_KNOCKDOWN);
-            this.tag(EnchantmentTags.ON_MOB_SPAWN_EQUIPMENT).add(YEEnchantments.BATTLE_RHYTHM, YEEnchantments.CHAIN_LIGHTNING);
+            // this.tag(EnchantmentTags.NON_TREASURE).add(YEEnchantments.BATTLE_RHYTHM, YEEnchantments.CHAIN_LIGHTNING, YEEnchantments.MIGHTY_KNOCKDOWN, YEEnchantments.BET_THE_FARM);
+            this.tag(EnchantmentTags.ON_MOB_SPAWN_EQUIPMENT).add(
+                YEEnchantments.CRITICAL_RATE,
+                YEEnchantments.CRITICAL_DAMAGE,
+                YEEnchantments.BATTLE_RHYTHM,
+                YEEnchantments.CHAIN_LIGHTNING
+            );
         }
 
     }

@@ -33,7 +33,7 @@ public class ChainLightningRenderer<T extends ChainLightningEntity> extends Enti
     protected Random random = new Random();
 
     @Override
-    public ResourceLocation getTextureLocation(@SuppressWarnings("null") T entity) {
+    public ResourceLocation getTextureLocation(T entity) {
         return TEXTURE;
     }
 
@@ -44,7 +44,7 @@ public class ChainLightningRenderer<T extends ChainLightningEntity> extends Enti
 	}
 
 	@Override
-	public void render(@SuppressWarnings("null") T entity, float yaw, float partialTicks, @SuppressWarnings("null") PoseStack poseStack, @SuppressWarnings("null") MultiBufferSource buffer, int packedLight) {
+	public void render(T entity, float yaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
         if (entity == null || poseStack == null) {
             return;
         }
@@ -59,7 +59,7 @@ public class ChainLightningRenderer<T extends ChainLightningEntity> extends Enti
         Vec3 rel = tar.subtract(src);
 
         float len = (float)rel.length();
-        if (len <= 1.0e-4f) {
+        if (len <= 1.0e-4f || src.length() <= 1.0e-4f || tar.length() <= 1.0e-4f) {
             return;
         }
 

@@ -1,6 +1,4 @@
-// 1.21.1	2025-08-23T19:38:49.3645723	Tags for minecraft:enchantment mod id yanagisenchantment
+// 1.21.1	2026-01-17T21:37:47.5940973	Tags for minecraft:enchantment mod id yanagisenchantment
 b2b6822ca372612657f2551c04847a3dee23788a data/c/tags/enchantment/entity_speed_enhancements.json
-6103016acc4f7e955218e01427a407b05e989441 data/c/tags/enchantment/weapon_damage_enhancements.json
-cfb5590f8c38767adb09c51095d7fdb89924362c data/minecraft/tags/enchantment/non_treasure.json
-a0b8f0dddd8645e9481576a8038f94440535a982 data/minecraft/tags/enchantment/on_mob_spawn_equipment.json
+25e25603034e41649d68ba957c36e97d22a12f37 data/minecraft/tags/enchantment/on_mob_spawn_equipment.json
 48055164dd37c77606f9d4bc6dd2f567413be7ce data/yanagisenchantment/tags/enchantment/attack_effect.json

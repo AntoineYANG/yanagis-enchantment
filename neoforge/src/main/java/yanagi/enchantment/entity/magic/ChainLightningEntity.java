@@ -410,7 +410,6 @@ public class ChainLightningEntity extends Entity implements OwnableEntity {
                         continue;
                     }
                 }
-                // TODO: reachable?
                 int c = Math.max(costForStriking(startPos, e) - ENERGY_BONUS_WHEN_HIT, 1);
                 if (t == null || c < cost) {
                     t = e;

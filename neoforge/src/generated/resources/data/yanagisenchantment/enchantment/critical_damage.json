@@ -1,21 +1,21 @@
 {
   "anvil_cost": 8,
   "description": {
-    "translate": "enchantment.yanagisenchantment.mighty_knockdown"
+    "translate": "enchantment.yanagisenchantment.critical_damage"
   },
   "exclusive_set": "#yanagisenchantment:attack_effect",
   "max_cost": {
-    "base": 20,
-    "per_level_above_first": 8
+    "base": 16,
+    "per_level_above_first": 7
   },
   "max_level": 5,
   "min_cost": {
-    "base": 5,
-    "per_level_above_first": 6
+    "base": 4,
+    "per_level_above_first": 5
   },
   "slots": [
     "mainhand"
   ],
   "supported_items": "#yanagisenchantment:melee_weapons",
-  "weight": 3
+  "weight": 2
 }

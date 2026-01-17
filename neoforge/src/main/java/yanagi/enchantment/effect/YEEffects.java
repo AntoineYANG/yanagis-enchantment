@@ -19,6 +19,7 @@ public class YEEffects {
     public static class Tags {
         
         // beneficial
+        public static final TagKey<MobEffect> BET_THE_FARM = tag("bet_the_farm");
         public static final TagKey<MobEffect> CRESCENDO = tag("crescendo");
         
         // harmful
@@ -38,6 +39,7 @@ public class YEEffects {
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, YanagisEnchantment.MOD_ID);
 
     // beneficial
+    public static final Holder<MobEffect> BET_THE_FARM = MOB_EFFECTS.register(BetTheFarmEffect.name, BetTheFarmEffect::new);
     public static final Holder<MobEffect> CRESCENDO_EFFECT = MOB_EFFECTS.register(CrescendoEffect.name, CrescendoEffect::new);
 
     // harmful

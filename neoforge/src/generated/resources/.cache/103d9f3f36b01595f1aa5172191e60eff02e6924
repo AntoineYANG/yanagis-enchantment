@@ -1,5 +1,7 @@
-// 1.21.1	2025-08-23T19:57:48.8245242	Registries
+// 1.21.1	2026-01-17T22:09:18.351536	Registries
 73eee0510f8ce904368a216263d23e388506f8af data/yanagisenchantment/damage_type/element_electricity.json
 9ad7793a378e1189a2a124b560c8ceaab9d14559 data/yanagisenchantment/enchantment/battle_rhythm.json
 cf71304e84d2b5347cf022d2a46167529ebdc470 data/yanagisenchantment/enchantment/chain_lightning.json
-b068cff2125b31b58c71ae8c8c584b427979f302 data/yanagisenchantment/enchantment/mighty_knockdown.json
+243c1ada041c28bef0de9cfbde9da08993a6a690 data/yanagisenchantment/enchantment/critical_damage.json
+0f932e84aedcce4258dc86cb8d1067caef4ad9cd data/yanagisenchantment/enchantment/critical_rate.json
+1e81854163b2e831e0b6c69abb60c338eb9fe548 data/yanagisenchantment/enchantment/life_steal.json

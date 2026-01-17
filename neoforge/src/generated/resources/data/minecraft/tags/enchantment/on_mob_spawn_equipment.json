@@ -1,5 +1,7 @@
 {
   "values": [
+    "yanagisenchantment:critical_rate",
+    "yanagisenchantment:critical_damage",
     "yanagisenchantment:battle_rhythm",
     "yanagisenchantment:chain_lightning"
   ]

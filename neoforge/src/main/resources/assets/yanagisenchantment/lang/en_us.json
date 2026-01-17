@@ -21,6 +21,12 @@
   "enchantment.yanagisenchantment.chain_lightning.desc": "",
   "enchantment.yanagisenchantment.mighty_knockdown": "Mighty Knockdown",
   "enchantment.yanagisenchantment.mighty_knockdown.desc": "",
+  "enchantment.yanagisenchantment.critical_rate": "Critical Rate",
+  "enchantment.yanagisenchantment.critical_rate.desc": "",
+  "enchantment.yanagisenchantment.critical_damage": "Critical Damage",
+  "enchantment.yanagisenchantment.critical_damage.desc": "",
+  "enchantment.yanagisenchantment.life_steal": "Life Steal",
+  "enchantment.yanagisenchantment.life_steal.desc": "",
 
   "entity.yanagisenchantment.chain_lightning": "Chain Lightning"
 }

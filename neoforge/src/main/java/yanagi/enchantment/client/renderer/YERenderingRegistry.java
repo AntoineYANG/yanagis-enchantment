@@ -15,6 +15,7 @@ public class YERenderingRegistry {
     @SubscribeEvent
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(YEEntities.CHAIN_LIGHTNING.get(), ChainLightningRenderer::new);
+		event.registerEntityRenderer(YEEntities.GUIDING_ARROW.get(), GuidingArrowRenderer::new);
     }
 
 }
